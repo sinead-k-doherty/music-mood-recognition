@@ -1,0 +1,11 @@
+version: "3"
+
+services:
+    mmr_model:
+        build: .
+        volumes:
+            - ./app/:/mmr_model/app/
+            - ./music/:/mmr_model/music/
+        ports:
+            - 5000:5000
+        command: bash -c "./.venv/bin/python3.8 ./app/main.py"
