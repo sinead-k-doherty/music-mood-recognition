@@ -2,7 +2,9 @@ FROM python:3.8-slim
 
 RUN apt-get update && \
     apt-get install -y build-essential cmake \
-    ffmpeg libsm6 libxext6
+    ffmpeg libsm6 libxext6 pkg-config libx11-dev \
+    libatlas-base-dev libgtk-3-dev \ 
+    libboost-python-dev 
 
 RUN pip install poetry==1.1.0rc1
 

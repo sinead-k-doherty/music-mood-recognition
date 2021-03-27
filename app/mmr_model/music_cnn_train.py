@@ -182,5 +182,4 @@ def build_cnn_model():
     # train model
     train(3000, session, accuracy, data, batch_size, x, y_true, optimiser, cost, saver)
 
-
-
+build_cnn_model()

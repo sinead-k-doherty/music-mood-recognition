@@ -62,7 +62,7 @@ def load_train_music(fields):
 
     for field in fields:
         index = fields.index(field)
-        song_files = glob.glob('/mmr_model/music/spectrograms_2/' + field + '/*')
+        song_files = glob.glob('/mmr_model/music/spectrograms/' + field + '/*')
 
         for file in song_files:
             song = cv2.imread(file)

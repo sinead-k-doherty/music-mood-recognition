@@ -39,15 +39,22 @@ def mood_prediction(file):
     print("Mood: " + str(emotion) + " - Value: " + str(value))
     return emotion, value
 
+def replace_format(song_name):
+    if ".mp3" in song_name:
+        return song_name.replace("mp3", "png", 1)
+    else:
+        return song_name.replace("au", "png", 1)
 
 # Generate spectrograms from songs
 def prepare_music_dataset():
     classes = ["happy", "sad", "angry"]
     for cl in classes:
         print("class --- " + cl)
-        music_files = glob.glob('/mmr_model/music/' + cl + '/*')
-        spec_path = '/mmr_model/music/spectrograms_2/' + cl
+        spec_path = '/mmr_model/music/spectrograms/' + cl + '/'
+        os.makedirs(spec_path)
+        music_files = glob.glob('/mmr_model/music/music/' + cl + '/*')
         for music in music_files:
+            spec_path = '/mmr_model/music/spectrograms/' + cl + '/'
             song_name = os.path.basename(music)
             song_name = replace_format(song_name)
             sig, fs = librosa.load(music)
@@ -55,17 +62,12 @@ def prepare_music_dataset():
             pylab.axes([0., 0., 1., 1.], frameon=False, xticks=[], yticks=[])
             spec = librosa.feature.melspectrogram(y=sig, sr=fs)
             librosa.display.specshow(librosa.power_to_db(spec, ref=np.max))
-            spec_path = spec_path + '/' + song_name
+            spec_path = spec_path + song_name
+            print(spec_path)
             pylab.savefig(spec_path, bbox_inches=None, pad_inches=0)
             pylab.close()
 
-
-def replace_format(song_name):
-    if ".mp3" in song_name:
-        return song_name.replace("mp3", "jpg", 1)
-    else:
-        return song_name.replace("au", "jpg", 1)
-
+prepare_music_dataset()
 
 def display_spectrograms():
     sig, fs = librosa.load('/mmr_model/music/tests/angry1.mp3')
