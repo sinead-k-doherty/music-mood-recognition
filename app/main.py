@@ -4,7 +4,7 @@ import uvicorn
 app = FastAPI()
 
 
-@app.post("/api/test", status_code=status.HTTP_200_OK)
+@app.post("/api/test_api", status_code=status.HTTP_200_OK)
 async def test():
     return
     
